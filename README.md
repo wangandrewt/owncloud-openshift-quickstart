@@ -7,6 +7,11 @@ Think of ownCloud as a way to roll your own Google Drive or Dropbox on-premise s
 
 More information can be found at http://owncloud.org/
 
+About this Fork
+---------
+
+This fork supports upgrading between ownCloud versions. Update `install_version` in *.openshift/action_hooks/build*, commit the change, push to your OpenShift, and open the application in your browser to complete the upgrade.
+
 Running on OpenShift
 --------------------
 
@@ -23,12 +28,12 @@ or with PostgreSQL cartridge:
 Add this upstream ownCloud quickstart repo
 
 	cd owncloud
-	git remote add upstream -m master git://github.com/openshift/owncloud-openshift-quickstart.git
+	git remote add upstream -m master git://github.com/wangandrewt/owncloud-openshift-quickstart.git
 	git pull -s recursive -X theirs upstream master
 
 Push back to your OpenShift repo
 
-	git push        
+	git push
 
 Head to your application at:
 

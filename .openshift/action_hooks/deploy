@@ -1,9 +1,9 @@
 #!/bin/bash
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
-dest_dir=${OPENSHIFT_DATA_DIR}current
-current_version=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version)
-build_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${current_version}
+version_to_install=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version)
+dest_dir=${OPENSHIFT_DATA_DIR}current/${version_to_install}
+build_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${version_to_install}
 
 echo "Starting deploy..."
 
@@ -48,5 +48,8 @@ else
     set_env_var 'OWNCLOUD_DB' $OWNCLOUD_DB $OPENSHIFT_HOMEDIR/.env/user_vars
   fi
 fi
+
+echo "Removing build directory"
+rm -r ${build_dir}
 
 echo "Completed deploy."

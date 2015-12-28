@@ -1,6 +1,6 @@
 #!/bin/bash
-# This is a simple post deploy hook executed after your application 
-# is deployed and started.  This script gets executed directly, so 
+# This is a simple post deploy hook executed after your application
+# is deployed and started.  This script gets executed directly, so
 # it could be python, php, ruby, etc.
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
@@ -36,9 +36,17 @@ pushd $OPENSHIFT_REPO_DIR/php
 if [ ! -f $OPENSHIFT_DATA_DIR/${OPENSHIFT_APP_NAME}-config.php ]
 then
   echo "Persisting configuration..."
-  mv config/config.php ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}-config.php
-  ln -s $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME-config.php $OPENSHIFT_REPO_DIR/php/config/config.php
+  mv --no-clobber config/config.php ${OPENSHIFT_DATA_DIR}/${OPENSHIFT_APP_NAME}-config.php
 fi
+ln -s $OPENSHIFT_DATA_DIR/$OPENSHIFT_APP_NAME-config.php $OPENSHIFT_REPO_DIR/php/config/config.php
 popd
+
+if [ -f ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.prev_version ]
+then
+  echo "Removing older version"
+  old_version=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.prev_version)
+  $(rm -r ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${old_version})
+  $(rm ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.prev_version)
+fi
 
 echo "Completed post_deploy."

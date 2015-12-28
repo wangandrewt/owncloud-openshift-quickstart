@@ -1,22 +1,27 @@
 #!/bin/bash
 
 # To update the version shipped in this quickstart, bump this variable:
-install_version="8.2.0"
+install_version="8.2.2"
 download_url=https://download.owncloud.org/community/owncloud-${install_version}.tar.bz2
 download_md5=https://download.owncloud.org/community/owncloud-${install_version}.tar.bz2.md5
 
 echo "Starting build..."
 
+# Get current version installed
+current_version_installed=$(cat ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.current_version)
+
 # Download and install dir
 install_dir=${OPENSHIFT_BUILD_DEPENDENCIES_DIR}${install_version}
 
-# Used in this script only
-current_version_dir=${OPENSHIFT_DATA_DIR}current
-
 # If already installed in the current gear, there is nothing to do
-[ -d "${current_version_dir}" ] && exit 0
+if [ "$current_version_installed" = "$install_version" ]; then
+  echo "ownCloud already installed and up to date. Ending build."
+  exit 0
+fi
 
-echo "ownCloud not yet installed..."
+echo $current_version_installed > ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.prev_version
+
+echo "ownCloud not yet installed or out of date..."
 
 # Get it
 mkdir -p $install_dir

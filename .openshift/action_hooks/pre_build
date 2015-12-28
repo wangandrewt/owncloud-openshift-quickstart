@@ -11,10 +11,9 @@ then
     ln -s $config_file ${OPENSHIFT_REPO_DIR}php/config/config.php
 
     # Remove autoconfig it doesn't get overwritten
-    if [[ -f ${OPENSHIFT_REPO_DIR}php/config/autoconfig.php ]] ; then 
+    if [[ -f ${OPENSHIFT_REPO_DIR}php/config/autoconfig.php ]] ; then
         rm ${OPENSHIFT_REPO_DIR}php/config/autoconfig.php
     fi
 fi
 
 echo "Completed pre_build."
-
