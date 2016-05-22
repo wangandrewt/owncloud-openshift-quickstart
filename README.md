@@ -12,6 +12,12 @@ About this Fork
 
 This fork supports upgrading between ownCloud versions. Update `install_version` in *.openshift/action_hooks/build*, commit the change, push to your OpenShift, and open the application in your browser to complete the upgrade.
 
+Previous ownCloud versions will not be removed from *${OPENSHIFT_DATA_DIR}/current*. Delete them after finishing the upgrade.
+
+1. SSH to Openshift: `rhc ssh -a <app-name>`
+1. Change to *${OPENSHIFT_DATA_DIR}/current*: `cd app-root/data/current`
+1. Remove the old directory: `rm -r <old-version>`
+
 Running on OpenShift
 --------------------
 
