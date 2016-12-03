@@ -49,4 +49,9 @@ then
   $(rm ${OPENSHIFT_BUILD_DEPENDENCIES_DIR}.prev_version)
 fi
 
+# Copy owncloud's .htaccess to bottom
+cat "${OPENSHIFT_REPO_DIR}/php/.htaccess" >> "${OPENSHIFT_REPO_DIR}/.htaccess"
+# Replace owncloud's .htaccess
+mv "${OPENSHIFT_REPO_DIR}/.htaccess" "${OPENSHIFT_REPO_DIR}/php/.htaccess"
+
 echo "Completed post_deploy."
