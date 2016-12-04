@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # To update the version shipped in this quickstart, bump this variable:
-install_version="8.2.8"
+install_version="8.2.9"
 download_url=https://download.owncloud.org/community/owncloud-${install_version}.tar.bz2
 download_md5=https://download.owncloud.org/community/owncloud-${install_version}.tar.bz2.md5
 
